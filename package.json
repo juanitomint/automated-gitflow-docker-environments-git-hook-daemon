@@ -1,0 +1,22 @@
+{
+  "name": "agfde-git-hoo-daemon",
+  "version": "1.0.0",
+  "description": "The goal of this project is to have an environment to run test & show for every branch of the git or git-flow process http://nvie.com/posts/a-successful-git-branching-model/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanitomint/automated-gitflow-docker-environments-git-hook-daemon.git"
+  },
+  "author": "Juan Ignacio Borda <juanignacioborda@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juanitomint/automated-gitflow-docker-environments-git-hook-daemon/issues"
+  },
+  "homepage": "https://github.com/juanitomint/automated-gitflow-docker-environments-git-hook-daemon#readme",
+  "dependencies": {
+    "git-web-hook": "^0.1.1"
+  }
+}
