@@ -1,25 +1,10 @@
-FROM node:7
+FROM node
 
-#### START C9 install
-RUN git clone https://github.com/c9/core.git
+#### START daemon install
+RUN git clone https://github.com/juanitomint/automated-gitflow-docker-environments-git-hook-daemon.git
 
-COPY c9.bat /root
-
-WORKDIR /core
+WORKDIR /automated-gitflow-docker-environments-git-hook-daemon
 
 RUN npm install 
 
-RUN scripts/install-sdk.sh
-
-#### END C9 install
-
-# Install some helpers
-COPY bash.bashrc /etc
-RUN apt update
-RUN apt install -y tig nano
-
-#CLEAN UP
-RUN rm -rf /var/lib/apt/lists/*
-RUN rm -rf /var/lib/apt/lists/*
-
-CMD /root/c9.bat
+CMD node index.js
