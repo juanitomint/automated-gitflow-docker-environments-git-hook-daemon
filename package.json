@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/juanitomint/automated-gitflow-docker-environments-git-hook-daemon#readme",
   "dependencies": {
+    "colors": "^1.1.2",
     "git-web-hook": "^0.1.1"
   }
 }
