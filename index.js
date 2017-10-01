@@ -2,36 +2,51 @@ var colors = require('colors');
 // process.on('uncaughtException', function (err) {
 //   console.log(err);
 // });
+var createcmd={};
+createcmd.cmd='./environment.sh';
+createcmd.options={cwd:'environments'};
 var GitHook = require('git-web-hook');
-var githook = GitHook({
+var gitlab = GitHook({
     "logger": console,
     "host": "0.0.0.0",
     "port": 3420,
+    "enableHealthcheck":true
 });
 
-githook.listen();
+gitlab.listen();
 
-githook.on('event', function(repo, ref, data, query) {
-    console.log(repo, ref, data, query)
+gitlab.on('push', function (repo,data,post) {
+    var refs=data.split('/');
+    var last=data.split('/').pop();
+    console.log(repo,data,post);
+    
+    createcmd.parameters=['create',last,repo]
+    /**
+     * BUILD ENVIRONMENT NAME=last with TYPE=repo
+     */
+    cmd(createcmd.cmd,createcmd.parameters,createcmd.options);
+    
+    
 });
 
 
 
 const spawn = require('child_process').spawn;
 
-function cmd(command,parameters) {
+function cmd(command,parameters,options) {
     parameters=parameters||[];    
-    const mycmd = spawn(command,parameters);
+    options=options||{};    
+    const mycmd = spawn(command,parameters,options);
     
     
 
     mycmd.stdout.on('data', (data) => {
         console.log('------------------------------------------------');
-        console.log(`stdout:${command} ${parameters} ${data}`.green);
+        console.log(`stdout:${command} ${parameters} \n${data}`.green);
     });
 
     mycmd.stderr.on('data', (data) => {
-        console.log(`stderr:${command} ${parameters} ${data}`.red);
+        console.log(`stderr:${command} ${parameters} \n${data}`.red);
     });
 
     
@@ -50,3 +65,4 @@ function cmd(command,parameters) {
  */
 cmd ('ls',['-lah','./']);
 // cmd ('ls',['-lah','/var']);
+
